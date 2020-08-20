@@ -22,6 +22,7 @@ namespace GenCodeByStruct
             {
                 streamWriter.WriteLine("extern ret_Results Rte_Get_" + structName + memberName + "(" + memberType + "* p_val);");
                 streamWriter.WriteLine("extern ret_Results Rte_Set_" + structName + memberName + "(" + memberType + "* p_val);");
+                streamWriter.WriteLine("extern ret_Results Rte_Set_Val" + structName + memberName + "( u8 val);");
             }
             
         }
@@ -67,6 +68,15 @@ namespace GenCodeByStruct
                 streamWriter.WriteLine("\tdis_irq();");
                 //streamWriter.WriteLine("\t" + structName + "." + memberName + " = val;");
                 streamWriter.WriteLine("\tmemcpy((void*)" + structName + "." + memberName + ",(void*)p_val," + "sizeof(" + structName + "." + memberName + ")" + ");");
+                streamWriter.WriteLine("\ten_irq();");
+                streamWriter.WriteLine("\treturn ret;");
+                streamWriter.WriteLine("}");
+
+                streamWriter.WriteLine("extern ret_Results Rte_Set_Val" + structName + memberName + "( u8 val);");
+                streamWriter.WriteLine("{");
+                streamWriter.WriteLine("\tret_Results ret = E_OK;");
+                streamWriter.WriteLine("\tdis_irq();");
+                streamWriter.WriteLine("\tmemset((void*)" + structName + "." + memberName + ",val," + "sizeof(" + structName + "." + memberName + ")" + ");");
                 streamWriter.WriteLine("\ten_irq();");
                 streamWriter.WriteLine("\treturn ret;");
                 streamWriter.WriteLine("}");
