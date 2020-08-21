@@ -30,7 +30,7 @@ namespace GenCodeByStruct
         {
             if (memberAryLen == "0")
             {
-                streamWriter.WriteLine("extern ret_Results Rte_Get_" + structName + memberName + "(" + memberType + "* p_val)");
+                streamWriter.WriteLine(" ret_Results Rte_Get_" + structName + memberName + "(" + memberType + "* p_val)");
                 streamWriter.WriteLine("{");
                 streamWriter.WriteLine("\tret_Results ret = E_OK;");
                 streamWriter.WriteLine("\tdis_irq();");
@@ -40,7 +40,7 @@ namespace GenCodeByStruct
                 streamWriter.WriteLine("}");
 
                 streamWriter.WriteLine();
-                streamWriter.WriteLine("extern ret_Results Rte_Set_" + structName + memberName + "(" + memberType + " val)");
+                streamWriter.WriteLine(" ret_Results Rte_Set_" + structName + memberName + "(" + memberType + " val)");
                 streamWriter.WriteLine("{");
                 streamWriter.WriteLine("\tret_Results ret = E_OK;");
                 streamWriter.WriteLine("\tdis_irq();");
@@ -51,7 +51,7 @@ namespace GenCodeByStruct
             }
             else
             {
-                streamWriter.WriteLine("extern ret_Results Rte_Get_" + structName + memberName + "(" + memberType + "* p_val)");
+                streamWriter.WriteLine(" ret_Results Rte_Get_" + structName + memberName + "(" + memberType + "* p_val)");
                 streamWriter.WriteLine("{");
                 streamWriter.WriteLine("\tret_Results ret = E_OK;");
                 streamWriter.WriteLine("\tdis_irq();");
@@ -62,7 +62,7 @@ namespace GenCodeByStruct
                 streamWriter.WriteLine("}");
 
                 streamWriter.WriteLine();
-                streamWriter.WriteLine("extern ret_Results Rte_Set_" + structName + memberName + "(" + memberType + "* p_val)");
+                streamWriter.WriteLine(" ret_Results Rte_Set_" + structName + memberName + "(" + memberType + "* p_val)");
                 streamWriter.WriteLine("{");
                 streamWriter.WriteLine("\tret_Results ret = E_OK;");
                 streamWriter.WriteLine("\tdis_irq();");
@@ -72,7 +72,7 @@ namespace GenCodeByStruct
                 streamWriter.WriteLine("\treturn ret;");
                 streamWriter.WriteLine("}");
 
-                streamWriter.WriteLine("extern ret_Results Rte_Set_Val" + structName + memberName + "( u8 val);");
+                streamWriter.WriteLine(" ret_Results Rte_Set_Val" + structName + memberName + "( u8 val)");
                 streamWriter.WriteLine("{");
                 streamWriter.WriteLine("\tret_Results ret = E_OK;");
                 streamWriter.WriteLine("\tdis_irq();");
@@ -99,11 +99,11 @@ namespace GenCodeByStruct
             foreach (string filePath in args)
             {
                 Console.WriteLine("current file is {0:S}", Path.GetFileName(filePath));
-                Regex regex_searchStructHead = new Regex(@"^\s*typedef\s*struct\s*(\w*)\s*{");
+                Regex regexSearchStructHead = new Regex(@"^\s*typedef\s*struct\s*(\w*)\s*{");
                 //Regex regex_searchMemberVal = new Regex(@"^\s*\w+\d*\s+(\w+\s*)+:*[\d*]*[^{}];");
                 //Regex regex_searchMemberVal = new Regex(@"^\s*(\w+\d*)\s+(\w*\s+)*(\w+):*\d*[^{}]*;\s*$");
-                Regex regex_searchMemberVal = new Regex(@"^\s*(\w+\d*)\s+(\w*\s+)*(\w+)(\[?(\d*)\]?):*\d*[^{}]*;\s*$");
-                Regex regex_searchStructTypeName = new Regex(@"^\s*}\s*(\w+)\s*;\s*$");
+                Regex regexSearchMemberVal = new Regex(@"^\s*(\w+\d*)\s+(\w*\s+)*(\w+)(\[?(\d*)\]?):*\d*[^{}]*;\s*$");
+                Regex regexSearchStructTypeName = new Regex(@"^\s*}\s*(\w+)\s*;\s*$");
 
                 FileStream fs = new FileStream(filePath, FileMode.OpenOrCreate);
                 FileStream newfshFile = new FileStream(System.AppDomain.CurrentDomain.SetupInformation.ApplicationBase + Path.GetFileNameWithoutExtension(filePath)+"IF.h", FileMode.Create);
@@ -128,10 +128,10 @@ namespace GenCodeByStruct
                 while((str = streamReader.ReadLine())!= null)
                 {
                     lineNum++;
-                    Match m = regex_searchStructHead.Match(str);
+                    Match m = regexSearchStructHead.Match(str);
                     if (m.Success)
                     {
-                        Console.WriteLine("search a struct tag in {0:d} line : struct Tag is {1:s}", lineNum,m.Groups[1]);
+                        Console.WriteLine(@"search a struct tag in {0:d} line : struct Tag is {1:s}", lineNum,m.Groups[1]);
                         memberName.Clear();
                         memberType.Clear();
                         memberAryLen.Clear();
@@ -140,7 +140,7 @@ namespace GenCodeByStruct
                     else
                     {
                     }
-                    Match mv = regex_searchMemberVal.Match(str);
+                    Match mv = regexSearchMemberVal.Match(str);
                     if (mv.Success)
                     {
                         Console.WriteLine("search a struct member in {0:d} line : member type is {1:s}, member name is  {2:s}", lineNum, mv.Groups[1], mv.Groups[3]);
@@ -159,7 +159,7 @@ namespace GenCodeByStruct
                     else
                     {
                     }
-                    Match mtn = regex_searchStructTypeName.Match(str);
+                    Match mtn = regexSearchStructTypeName.Match(str);
                     if ((mtn.Success)&&(hasAStrut))
                     {
                         Console.WriteLine("search a struct type in   {0:d} line : struct type name is {1:s}", lineNum, mtn.Groups[1]);
