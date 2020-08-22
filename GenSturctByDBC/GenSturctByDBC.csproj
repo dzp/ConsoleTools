@@ -98,5 +98,11 @@
     <None Include="App.config" />
     <None Include="packages.config" />
   </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\ClassLibraryGenFileInfo\ClassLibraryGenFileInfo.csproj">
+      <Project>{0e7f3813-8049-494a-9fe8-eed19bb6d102}</Project>
+      <Name>ClassLibraryGenFileInfo</Name>
+    </ProjectReference>
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

@@ -111,8 +111,8 @@ namespace GenCodeByStruct
                 StreamWriter streamWriterHFile = new StreamWriter(newfshFile);
                 StreamWriter streamWriterCFile = new StreamWriter(newfscFile);
                 
-                streamWriterHFile.WriteLine(@"#ifndef __" + Path.GetFileNameWithoutExtension(filePath) + "_H__");
-                streamWriterHFile.WriteLine(@"#define __" + Path.GetFileNameWithoutExtension(filePath) + "_H__");
+                streamWriterHFile.WriteLine(@"#ifndef __" + Path.GetFileNameWithoutExtension(filePath) + "IF_H__");
+                streamWriterHFile.WriteLine(@"#define __" + Path.GetFileNameWithoutExtension(filePath) + "IF_H__");
                 streamWriterHFile.WriteLine(@"#include "+"\""+ Path.GetFileName(filePath)+"\"");
                 streamWriterHFile.Flush();
                 streamWriterCFile.WriteLine(@"#include " + "\"" + Path.GetFileNameWithoutExtension(filePath) + "IF.h" + "\"");
@@ -181,7 +181,7 @@ namespace GenCodeByStruct
                 }
                 streamWriterCFile.Flush();
                 streamWriterCFile.Close();
-                streamWriterHFile.WriteLine(@"#endif /* " + Path.GetFileNameWithoutExtension(filePath) + "_H__ */");
+                streamWriterHFile.WriteLine(@"#endif /* " + Path.GetFileNameWithoutExtension(filePath) + "IF_H__ */");
                 streamWriterHFile.Flush();
                 streamWriterHFile.Close();
 
