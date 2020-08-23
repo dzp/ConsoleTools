@@ -1,11 +1,39 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <ClassDiagram MajorVersion="1" MinorVersion="1">
-  <Class Name="ClassLibraryGenFileInfo.ClassWriteFile">
-    <Position X="5.25" Y="1.25" Width="1.5" />
+  <Class Name="ClassLibraryGenFileInfo.ClassDBCMsg">
+    <Position X="7" Y="1" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>AAAAAgAAAAABAAAAgAQAAAQAAABAAAABAAAAAAAAAAA=</HashCode>
+      <HashCode>EIAAAAAgAAAAIAAAAAAAAAAAAAAEAAQAAgAAAAAQBgA=</HashCode>
+      <FileName>ClassDBCMsg.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="ClassLibraryGenFileInfo.ClassDBCSig">
+    <Position X="2.5" Y="1" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>GACAAACAAAAiQAgAIACAAIIAAAAEoAAAAgAQAAAQAEA=</HashCode>
+      <FileName>ClassDBCSig.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="ClassLibraryGenFileInfo.ClassWriteFile">
+    <Position X="0.75" Y="1.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAgACAEABAAAAwAQAAAAAAABAACABAAAAAABAIAA=</HashCode>
       <FileName>ClassWriteFile.cs</FileName>
     </TypeIdentifier>
   </Class>
+  <Enum Name="ClassLibraryGenFileInfo.E_FrameFormat">
+    <Position X="9.5" Y="2" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAABAAAAAAAAAAAAAAAAAAAAAAAAAAAQAAAAAAAAAAA=</HashCode>
+      <FileName>ClassDBCMsg.cs</FileName>
+    </TypeIdentifier>
+  </Enum>
+  <Enum Name="ClassLibraryGenFileInfo.E_FrameType">
+    <Position X="5" Y="1.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAACAAAAAAAAAAAIAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>ClassDBCMsg.cs</FileName>
+    </TypeIdentifier>
+  </Enum>
   <Font Name="Microsoft YaHei UI" Size="9" />
 </ClassDiagram>

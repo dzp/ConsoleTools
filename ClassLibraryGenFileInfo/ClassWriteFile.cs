@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.IO;
 
 namespace ClassLibraryGenFileInfo
@@ -55,6 +56,51 @@ namespace ClassLibraryGenFileInfo
             writer.WriteLine("}" + enumName + ";");
             return 0;
         }
+        
+        public int WriteStruct(List<ClassDBCSig> list, ClassDBCMsg msg, StreamWriter writer = null)
+        {
+
+            if (writer == null)
+            {
+                writer = CurrentFileStream;
+            }
+
+            uint sigPos = 0;
+            writer.WriteLine("typedef struct s_"+ msg.name+"_"+ (msg.externFlag == E_FrameFormat.e_FrameFormat_EXT?$"0x{msg.id:X8}": $"0x{msg.id:X3}") +"tag{");
+            writer.WriteLine("\tunion{");
+            writer.WriteLine("\t\tu8 data[8];");
+            writer.WriteLine("\t\tstruct{");
+            foreach (ClassDBCSig sig in list)
+            {
+                if (sigPos != sig.startBit)
+                {
+
+                    writer.WriteLine("\t\t\tu32:"+(sig.startBit-sigPos).ToString()+";");
+                }
+
+                if (sig.len > 8)
+                {
+                    if (sig.startBit % 8 == 0)
+                    {
+
+                    }
+                    else
+                    {
+                        
+                    }
+                }
+                else
+                {
+                    writer.WriteLine("\t\t\tu32 sig_" + sig.name + ":" + sig.len.ToString());
+                }
+                
+                sigPos += sig.len;
+            }
+            writer.WriteLine("\t\t};");
+            writer.WriteLine("\t};");
+            writer.WriteLine("}s_" + msg.name + "_" + (msg.externFlag == E_FrameFormat.e_FrameFormat_EXT ? $"0x{msg.id:X8}" : $"0x{msg.id:X3}") + ";");
+            return 0;
+        }
         public int WriteFileMacro(string Macro, StreamWriter writer = null)
         {
             if (writer == null)
@@ -65,6 +111,7 @@ namespace ClassLibraryGenFileInfo
             string macroFileName = FileName.Replace(".", "_");
             writer.WriteLine(@"#ifndef __" + macroFileName.ToUpper() + "__");
             writer.WriteLine(@"#define __" + macroFileName.ToUpper() + "__");
+            writer.WriteLine(@"#include  "+"\"typedefdef.h"+"\"");
             writer.Flush();
             return 0;
         }
